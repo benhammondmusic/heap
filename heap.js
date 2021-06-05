@@ -22,19 +22,24 @@ insert(): Inserting a new key takes O(Log n) time. We add a new key at the end o
 class MinHeap {
   constructor() {
     console.log('Initializing Heap');
-    let priorityQueue = [];
-  }
-
-  heapify() {
-    console.log('heapify - reorganize items so that every child is greater value than its parent');
+    this.priorityQueue = [];
   }
 
   peek() {
     console.log('peek - return value of smallest element, the top level item, without removing from the heap');
+    if (this.priorityQueue.length === 0) return 'Heap is empty';
+    return this.priorityQueue[0];
   }
 
   pop() {
+    let min = this.peek();
+    console.log('NEED TO IMPLEMENT');
     console.log('pop - remove smallest element, the top level item, from the heap and return it ');
+    return min;
+  }
+
+  heapify() {
+    console.log('heapify - reorganize items so that every child is greater value than its parent');
   }
 
   insert() {

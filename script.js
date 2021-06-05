@@ -2,7 +2,7 @@ const MinHeap = require('./heap');
 
 const testHeap = new MinHeap();
 
-testHeap.peek();
-testHeap.pop();
+console.log(testHeap.peek());
+console.log(testHeap.pop());
 testHeap.insert();
 testHeap.remove();
