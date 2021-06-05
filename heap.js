@@ -1,4 +1,4 @@
-""" 
+/* 
 
 https://www.geeksforgeeks.org/min-heap-in-python/
 
@@ -17,22 +17,33 @@ peek()/getMin(): It returns the root element of Min Heap. Time Complexity of thi
 pop()/extractMin(): Removes the minimum element from MinHeap. Time Complexity of this Operation is O(Log n) as this operation needs to maintain the heap property (by calling heapify()) after removing root.
 insert(): Inserting a new key takes O(Log n) time. We add a new key at the end of the tree. If new key is larger than its parent, then we don’t need to do anything. Otherwise, we need to traverse up to fix the violated heap property.
 
+*/
 
- """
+class MinHeap {
+  constructor() {
+    console.log('Initializing Heap');
+    let priorityQueue = [];
+  }
 
-class Min_Heap():
-    def __init__(self):
-        self.array = []
+  heapify() {
+    console.log('heapify - reorganize items so that every child is greater value than its parent');
+  }
 
-    def peek(self):
-        print("Peek(): view root node")
-        return self.array[0]
+  peek() {
+    console.log('peek - return value of smallest element, the top level item, without removing from the heap');
+  }
 
-    def pop(self):
-        print("Pop(): remove and return root node, re organizing remaining heap")
-    
-    def push(self, item):
-        print("Push(): add to end of queue, moving up in line based on priority")
+  pop() {
+    console.log('pop - remove smallest element, the top level item, from the heap and return it ');
+  }
 
-bens_heap = Min_Heap()
+  insert() {
+    console.log("insert - add an item to the end of the queue, then swap it with a parent node as needed until it's greater than it's new child and smaller than it's new parent");
+  }
 
+  remove() {
+    console.log('remove - search the entire structure for a particular item, remove it, and then heapify to keep heap structure ordered properly');
+  }
+}
+
+module.exports = MinHeap;
