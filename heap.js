@@ -42,11 +42,14 @@ class MinHeap {
     console.log('heapify - reorganize items so that every child is greater value than its parent');
   }
 
-  insert() {
+  insert(item) {
     console.log("insert - add an item to the end of the queue, then swap it with a parent node as needed until it's greater than it's new child and smaller than it's new parent");
+    this.priorityQueue.push(item);
+    // while new item is great than its parent
+    // swap item and parent
   }
 
-  remove() {
+  remove(item) {
     console.log('remove - search the entire structure for a particular item, remove it, and then heapify to keep heap structure ordered properly');
   }
 }
