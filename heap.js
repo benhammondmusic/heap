@@ -22,7 +22,7 @@ insert(): Inserting a new key takes O(Log n) time. We add a new key at the end o
 class MinHeap {
   constructor() {
     console.log('Initializing Heap');
-    this.priorityQueue = [];
+    this.priorityQueue = [10, 20, 30, 40, 50];
   }
 
   peek() {
@@ -45,8 +45,26 @@ class MinHeap {
   insert(item) {
     console.log("insert - add an item to the end of the queue, then swap it with a parent node as needed until it's greater than it's new child and smaller than it's new parent");
     this.priorityQueue.push(item);
+
+    if (this.priorityQueue.length === 1) return;
+
+    let itemIndex = this.priorityQueue.length - 1;
+    let parentIndex = Math.floor((itemIndex - 1) / 2);
     // while new item is great than its parent
-    // swap item and parent
+    while (this.priorityQueue[itemIndex] < this.priorityQueue[parentIndex]) {
+      console.log('ITEM IS SMALLER THAN PARENT');
+      console.log(`SWAPPING ${this.priorityQueue[itemIndex]} with ${this.priorityQueue[parentIndex]}`);
+
+      // swap item value and parent item value
+      let tempItem = this.priorityQueue[parentIndex];
+      this.priorityQueue[parentIndex] = this.priorityQueue[itemIndex];
+      this.priorityQueue[itemIndex] = tempItem;
+
+      // swap index vars
+      let tempIndex = parentIndex;
+      parentIndex = Math.floor((parentIndex - 1) / 2);
+      itemIndex = parentIndex;
+    }
   }
 
   remove(item) {
