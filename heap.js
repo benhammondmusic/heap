@@ -22,7 +22,7 @@ insert(): Inserting a new key takes O(Log n) time. We add a new key at the end o
 class MinHeap {
   constructor() {
     console.log('Initializing Heap');
-    this.priorityQueue = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180];
+    this.priorityQueue = [];
   }
 
   display() {
@@ -53,18 +53,60 @@ class MinHeap {
   }
 
   pop() {
-    let min = this.peek();
-    console.log('NEED TO IMPLEMENT');
     console.log('pop - remove smallest element, the top level item, from the heap and return it ');
+    // save smallest item to later return
+    const min = this.peek();
+
+    // remove smallest item, put last item in its place
+    this.priorityQueue[0] = this.priorityQueue.pop();
+
+    // fix the heap by starting at the top and recursing through to always be sure that children are smaller or equal to their parent
+    this.heapify(0);
+
     return min;
   }
 
-  heapify() {
+  heapify(startingIndex) {
     console.log('heapify - reorganize items so that every child is greater value than its parent');
+    console.log('PARENT', this.priorityQueue[startingIndex], 'AT [', startingIndex, ']');
+
+    let leftChildIndex = this.getLeftChildIndex(startingIndex);
+    let rightChildIndex = this.getRightChildIndex(startingIndex);
+    let smallestIndex = startingIndex;
+
+    let length = this.priorityQueue.length;
+
+    // if leftChild exists
+    // and if the left child is smaller than the current parent
+    // store it as the new smallestIndex
+    if (leftChildIndex <= length && this.priorityQueue[leftChildIndex] < this.priorityQueue[smallestIndex]) {
+      console.log(this.priorityQueue[leftChildIndex], 'AT [', leftChildIndex, '] is smaller than ', this.priorityQueue[smallestIndex], ' AT [', smallestIndex, ']');
+      smallestIndex = leftChildIndex;
+    }
+    // if right child exists and  is smaller than the current parent
+    // store it as the new smallestIndex
+
+    if (rightChildIndex <= length && this.priorityQueue[rightChildIndex] < this.priorityQueue[smallestIndex]) {
+      console.log(this.priorityQueue[rightChildIndex], 'AT [', rightChildIndex, '] is smaller than ', this.priorityQueue[smallestIndex], ' AT [', smallestIndex, ']');
+      smallestIndex = rightChildIndex;
+    }
+    // if startingIndex is no longer the smallest of the three (parent, left child, right child)
+    // swap the values of the real smallest and the current parent
+    // recursively run heapify() on the new smallest, which is the correct child node
+    if (startingIndex !== smallestIndex) {
+      let tempNode = this.priorityQueue[smallestIndex];
+      this.priorityQueue[smallestIndex] = this.priorityQueue[startingIndex];
+      this.priorityQueue[startingIndex] = tempNode;
+      this.heapify(smallestIndex);
+    }
+  }
+
+  length() {
+    return this.priorityQueue.length;
   }
 
   insert(item) {
-    console.log("insert - add an item to the end of the queue, then swap it with a parent node as needed until it's greater than it's new child and smaller than it's new parent");
+    console.log("insert - add an item to the end of the queue, then swap it with a parent node as needed until it's greater than its new child and smaller than its new parent");
     this.priorityQueue.push(item);
 
     if (this.priorityQueue.length === 1) return;
@@ -83,13 +125,21 @@ class MinHeap {
 
       // swap index vars
       let tempIndex = parentIndex;
-      parentIndex = Math.floor((parentIndex - 1) / 2);
+      parentIndex = Math.floor(parentIndex / 2);
       itemIndex = tempIndex;
     }
   }
 
   remove(item) {
     console.log('remove - search the entire structure for a particular item, remove it, and then heapify to keep heap structure ordered properly');
+  }
+
+  getLeftChildIndex(parentIndex) {
+    return parentIndex * 2 + 1;
+  }
+
+  getRightChildIndex(parentIndex) {
+    return parentIndex * 2 + 2;
   }
 }
 
