@@ -22,7 +22,28 @@ insert(): Inserting a new key takes O(Log n) time. We add a new key at the end o
 class MinHeap {
   constructor() {
     console.log('Initializing Heap');
-    this.priorityQueue = [10, 20, 30, 40, 50];
+    this.priorityQueue = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180];
+  }
+
+  display() {
+    let columnCounter = 0;
+    let rowCounter = 0;
+    let rowString = '';
+    let multiplier = 1;
+    for (let item of this.priorityQueue) {
+      multiplier = 90 / 2 ** rowCounter - item.toString().length / 2;
+      let columnSpacer = ' '.repeat(multiplier);
+      rowString += columnSpacer + item + columnSpacer;
+      columnCounter++;
+      if (columnCounter >= 2 ** rowCounter) {
+        // console.log('X = ', multiplier);
+        console.log(rowString, '\n');
+        columnCounter = 0;
+        rowCounter++;
+        rowString = '';
+      }
+    }
+    console.log(rowString);
   }
 
   peek() {
@@ -49,7 +70,7 @@ class MinHeap {
     if (this.priorityQueue.length === 1) return;
 
     let itemIndex = this.priorityQueue.length - 1;
-    let parentIndex = Math.floor((itemIndex - 1) / 2);
+    let parentIndex = Math.floor(itemIndex / 2);
     // while new item is great than its parent
     while (this.priorityQueue[itemIndex] < this.priorityQueue[parentIndex]) {
       console.log('ITEM IS SMALLER THAN PARENT');
@@ -63,7 +84,7 @@ class MinHeap {
       // swap index vars
       let tempIndex = parentIndex;
       parentIndex = Math.floor((parentIndex - 1) / 2);
-      itemIndex = parentIndex;
+      itemIndex = tempIndex;
     }
   }
 
