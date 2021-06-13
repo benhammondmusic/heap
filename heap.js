@@ -46,14 +46,17 @@ class MinHeap {
     console.log(rowString);
   }
 
+  size() {
+    return this.priorityQueue.length;
+  }
   peek() {
-    console.log('peek - return value of smallest element, the top level item, without removing from the heap');
+    console.log('peek ');
     if (this.priorityQueue.length === 0) return 'Heap is empty';
     return this.priorityQueue[0];
   }
 
   pop() {
-    console.log('pop - remove smallest element, the top level item, from the heap and return it ');
+    console.log('pop');
     // save smallest item to later return
     const min = this.peek();
 
@@ -67,7 +70,7 @@ class MinHeap {
   }
 
   heapify(startingIndex) {
-    console.log('heapify - reorganize items so that every child is greater value than its parent');
+    console.log('heapify');
     console.log('PARENT', this.priorityQueue[startingIndex], 'AT [', startingIndex, ']');
 
     let leftChildIndex = this.getLeftChildIndex(startingIndex);
@@ -106,7 +109,7 @@ class MinHeap {
   }
 
   insert(item) {
-    console.log("insert - add an item to the end of the queue, then swap it with a parent node as needed until it's greater than its new child and smaller than its new parent");
+    console.log('inserting', item);
     this.priorityQueue.push(item);
 
     if (this.priorityQueue.length === 1) return;
@@ -130,8 +133,39 @@ class MinHeap {
     }
   }
 
-  remove(item) {
-    console.log('remove - search the entire structure for a particular item, remove it, and then heapify to keep heap structure ordered properly');
+  getHeight() {
+    const height = Math.floor(Math.log2(this.priorityQueue.length)) + 1;
+    console.log('Q has ', this.priorityQueue.length, ' items, and height of:', height);
+    return height;
+  }
+
+  // return true is a value is present in the heap
+  contains(item, startingIndex = 0) {
+    console.log(`Searching for ${item}; current top-item is ${this.priorityQueue[startingIndex]} at index [${startingIndex}]`);
+    const parentNode = this.priorityQueue[startingIndex];
+
+    // check parent if initial contains call
+    if (parentNode === item) {
+      console.log(`FOUND IT AT [${startingIndex}]`);
+      return true;
+    }
+
+    // if its not the parent recurse on both children
+    const leftChildIndex = this.getLeftChildIndex(startingIndex);
+    if (item > parentNode && leftChildIndex < this.priorityQueue.length) {
+      console.log('recursing on left child');
+      if (this.contains(item, leftChildIndex)) return true;
+    }
+
+    // if its not the parent or either child, recurse on both children
+    const rightChildIndex = this.getRightChildIndex(startingIndex);
+    if (item > parentNode && rightChildIndex < this.priorityQueue.length) {
+      console.log('recursing on right child');
+      if (this.contains(item, rightChildIndex)) return true;
+    }
+
+    console.log(item, 'not found yet');
+    return -1;
   }
 
   getLeftChildIndex(parentIndex) {

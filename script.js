@@ -23,3 +23,17 @@ testHeap.insert(834);
 testHeap.insert(933);
 console.log('REMOVING THE SMALLEST ITEM WHICH WAS: ', testHeap.pop());
 testHeap.display();
+testHeap.pop();
+testHeap.pop();
+testHeap.pop();
+testHeap.pop();
+testHeap.insert(3);
+testHeap.display();
+testHeap.getHeight();
+const resultIndex = testHeap.contains(130);
+console.log(`result of contains(130): ${resultIndex}`);
+
+while (testHeap.size() > 1) {
+  testHeap.pop();
+  testHeap.display();
+}
